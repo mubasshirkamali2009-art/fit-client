@@ -63,6 +63,20 @@ const Navbar: React.FC = () => {
             >
               Calorie Counter
             </Link>
+            <Link
+              href="/know"
+              className={`text-sm font-semibold transition-colors duration-200 ${isActive('/know') ? 'text-brand-green' : 'text-gray-600 hover:text-brand-green'
+                }`}
+            >
+              Know Base
+            </Link>
+            <Link
+              href="/blog"
+              className={`text-sm font-semibold transition-colors duration-200 ${isActive('/blog') ? 'text-brand-green' : 'text-gray-600 hover:text-brand-green'
+                }`}
+            >
+              Blog
+            </Link>
             {userSession?.user && (
               <Link
                 href="/generate-diet"
@@ -194,6 +208,22 @@ const Navbar: React.FC = () => {
               }`}
           >
             Calorie Counter
+          </Link>
+          <Link
+            href="/know"
+            onClick={() => setIsOpen(false)}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-semibold ${isActive('/know') ? 'bg-brand-tint-green text-brand-green' : 'text-gray-600 hover:bg-gray-50'
+              }`}
+          >
+            Know Base
+          </Link>
+          <Link
+            href="/blog"
+            onClick={() => setIsOpen(false)}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-semibold ${isActive('/blog') ? 'bg-brand-tint-green text-brand-green' : 'text-gray-600 hover:bg-gray-50'
+              }`}
+          >
+            Blog
           </Link>
 
           {userSession?.user ? (

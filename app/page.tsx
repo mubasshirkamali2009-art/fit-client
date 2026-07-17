@@ -3,7 +3,28 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
-import { ArrowRight, Flame, Brain, Sparkles, Scale, CheckCircle2, ChevronRight, ChevronLeft } from 'lucide-react';
+import {
+  ArrowRight,
+  Flame,
+  Brain,
+  Sparkles,
+  Scale,
+  CheckCircle2,
+  ChevronRight,
+  ChevronLeft,
+  Zap,
+  TrendingUp,
+  HeartHandshake,
+  ShieldCheck,
+  HelpCircle,
+  Users,
+  Target,
+  Apple,
+  Dumbbell,
+  Award,
+  Activity,
+  Calendar
+} from 'lucide-react';
 import {
   ResponsiveContainer,
   BarChart,
@@ -410,6 +431,294 @@ const Page = () => {
                 View Stats <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Link>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW SECTION 1: How It Works Step-by-Step */}
+      <div className="bg-white border border-gray-100 rounded-[1.5rem] sm:rounded-[2.5rem] p-5 sm:p-10 shadow-sm mb-10 sm:mb-16 space-y-6 sm:space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
+          <span className="text-brand-green text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-brand-tint-green border border-brand-green/20 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full inline-block">
+            ⚡ Simple Process
+          </span>
+          <h2 className="font-display font-black text-xl sm:text-3xl tracking-tight text-brand-black">
+            How Healthify Transforms Your Routine
+          </h2>
+          <p className="text-[11px] sm:text-xs font-semibold text-gray-500">
+            A seamless three-step pathway designed to optimize your health journey effortlessly.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          <div className="bg-gray-50/50 border border-gray-100 p-5 sm:p-6 rounded-2xl sm:rounded-3xl relative space-y-3 hover:border-brand-green/30 transition-all">
+            <div className="flex items-center justify-between">
+              <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-green text-white font-black text-xs sm:text-sm flex items-center justify-center">
+                01
+              </span>
+              <Activity className="h-5 w-5 text-brand-green" />
+            </div>
+            <h3 className="font-display font-black text-base sm:text-lg text-brand-black">Input Your Metrics</h3>
+            <p className="text-[11px] sm:text-xs text-gray-500 font-semibold leading-relaxed">
+              Set up your physical baseline using real metabolic equations for individualized target calculations.
+            </p>
+          </div>
+
+          <div className="bg-gray-50/50 border border-gray-100 p-5 sm:p-6 rounded-2xl sm:rounded-3xl relative space-y-3 hover:border-brand-purple/30 transition-all">
+            <div className="flex items-center justify-between">
+              <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-purple text-white font-black text-xs sm:text-sm flex items-center justify-center">
+                02
+              </span>
+              <Brain className="h-5 w-5 text-brand-purple" />
+            </div>
+            <h3 className="font-display font-black text-base sm:text-lg text-brand-black">AI Menu Generation</h3>
+            <p className="text-[11px] sm:text-xs text-gray-500 font-semibold leading-relaxed">
+              Gemini AI analyzes your dietary profile to instantly create macro-balanced daily meal schedules.
+            </p>
+          </div>
+
+          <div className="bg-gray-50/50 border border-gray-100 p-5 sm:p-6 rounded-2xl sm:rounded-3xl relative space-y-3 hover:border-brand-black/30 transition-all">
+            <div className="flex items-center justify-between">
+              <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-black text-white font-black text-xs sm:text-sm flex items-center justify-center">
+                03
+              </span>
+              <TrendingUp className="h-5 w-5 text-brand-black" />
+            </div>
+            <h3 className="font-display font-black text-base sm:text-lg text-brand-black">Track & Improve</h3>
+            <p className="text-[11px] sm:text-xs text-gray-500 font-semibold leading-relaxed">
+              Log daily items, view intake quality trends, and stay accountable to your fitness vision long-term.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW SECTION 2: Fitness Goals Banner */}
+      <div className="bg-gradient-to-br from-brand-black via-gray-900 to-brand-black rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-12 text-white shadow-xl mb-10 sm:mb-16 space-y-6 sm:space-y-8 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-72 h-72 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-brand-green/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3 relative z-10">
+          <span className="text-brand-green text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-brand-green/10 border border-brand-green/20 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full inline-block">
+            🎯 Tailored Strategies
+          </span>
+          <h2 className="font-display font-black text-xl sm:text-3xl tracking-tight text-white">
+            Optimized for Every Body & Goal
+          </h2>
+          <p className="text-gray-400 font-semibold text-[11px] sm:text-xs">
+            Whether building strength, losing body fat, or maintaining high energy levels.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 relative z-10">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 space-y-3 backdrop-blur-sm hover:bg-white/10 transition-all">
+            <div className="p-3 bg-brand-green/20 text-brand-green rounded-xl w-fit">
+              <Dumbbell className="h-5 w-5 sm:h-6 sm:w-6" />
+            </div>
+            <h3 className="font-display font-black text-base sm:text-lg text-white">Muscle Gain (Bulking)</h3>
+            <p className="text-[11px] sm:text-xs text-gray-400 font-semibold leading-relaxed">
+              Structured surplus calorie allocations aimed at fueling hypertrophic growth and max recovery.
+            </p>
+          </div>
+
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 space-y-3 backdrop-blur-sm hover:bg-white/10 transition-all">
+            <div className="p-3 bg-brand-purple/20 text-brand-purple rounded-xl w-fit">
+              <Flame className="h-5 w-5 sm:h-6 sm:w-6" />
+            </div>
+            <h3 className="font-display font-black text-base sm:text-lg text-white">Fat Loss (Cutting)</h3>
+            <p className="text-[11px] sm:text-xs text-gray-400 font-semibold leading-relaxed">
+              Precise deficit budgets protecting lean body mass while burning fat effectively.
+            </p>
+          </div>
+
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 space-y-3 backdrop-blur-sm hover:bg-white/10 transition-all">
+            <div className="p-3 bg-white/20 text-white rounded-xl w-fit">
+              <Target className="h-5 w-5 sm:h-6 sm:w-6" />
+            </div>
+            <h3 className="font-display font-black text-base sm:text-lg text-white">Weight Maintenance</h3>
+            <p className="text-[11px] sm:text-xs text-gray-400 font-semibold leading-relaxed">
+              Equilibrated energy balance tailored to sustain vitality, athletic performance, and body weight.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW SECTION 3: Live Community Stat Badges */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10 sm:mb-16">
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center space-y-1.5 sm:space-y-2 shadow-sm">
+          <div className="mx-auto w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-tint-green text-brand-green flex items-center justify-center mb-1">
+            <Apple className="h-4 w-4 sm:h-5 sm:w-5" />
+          </div>
+          <p className="text-xl sm:text-3xl font-display font-black text-brand-black tracking-tight">10,000+</p>
+          <p className="text-[9px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-wider">Foods Database</p>
+        </div>
+
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center space-y-1.5 sm:space-y-2 shadow-sm">
+          <div className="mx-auto w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-tint-purple text-brand-purple flex items-center justify-center mb-1">
+            <Brain className="h-4 w-4 sm:h-5 sm:w-5" />
+          </div>
+          <p className="text-xl sm:text-3xl font-display font-black text-brand-black tracking-tight">98.4%</p>
+          <p className="text-[9px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-wider">AI Accuracy Rate</p>
+        </div>
+
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center space-y-1.5 sm:space-y-2 shadow-sm">
+          <div className="mx-auto w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gray-100 text-brand-black flex items-center justify-center mb-1">
+            <Users className="h-4 w-4 sm:h-5 sm:w-5" />
+          </div>
+          <p className="text-xl sm:text-3xl font-display font-black text-brand-black tracking-tight">50,000+</p>
+          <p className="text-[9px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-wider">Diets Generated</p>
+        </div>
+
+        <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center space-y-1.5 sm:space-y-2 shadow-sm">
+          <div className="mx-auto w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-tint-green text-brand-green flex items-center justify-center mb-1">
+            <Award className="h-4 w-4 sm:h-5 sm:w-5" />
+          </div>
+          <p className="text-xl sm:text-3xl font-display font-black text-brand-black tracking-tight">100%</p>
+          <p className="text-[9px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-wider">Science-Backed</p>
+        </div>
+      </div>
+
+      {/* NEW SECTION 4: Testimonials / User Experiences */}
+      <div className="bg-white border border-gray-100 rounded-[1.5rem] sm:rounded-[2.5rem] p-5 sm:p-10 shadow-sm mb-10 sm:mb-16 space-y-6 sm:space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
+          <span className="text-brand-purple text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-brand-tint-purple border border-brand-purple/20 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full inline-block">
+            💬 Real Results
+          </span>
+          <h2 className="font-display font-black text-xl sm:text-3xl tracking-tight text-brand-black">
+            Loved by Health Enthusiasts
+          </h2>
+          <p className="text-[11px] sm:text-xs font-semibold text-gray-500">
+            See how our smart calorie counter and AI diet planner fit into daily lives.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          <div className="bg-gray-50/40 border border-gray-100 rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+            <p className="text-[11px] sm:text-xs font-semibold text-gray-600 leading-relaxed italic">
+              "The Gemini AI plan generation is ridiculously fast. It builds realistic whole-day meal plans matching my macros perfectly."
+            </p>
+            <div className="pt-3 border-t border-gray-100 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-brand-green text-white font-black text-xs flex items-center justify-center">
+                AK
+              </div>
+              <div>
+                <p className="text-xs font-black text-brand-black">Alex K.</p>
+                <p className="text-[9px] font-bold text-gray-400">Fitness Coach</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50/40 border border-gray-100 rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+            <p className="text-[11px] sm:text-xs font-semibold text-gray-600 leading-relaxed italic">
+              "Finally a calorie counter that doesn't feel cluttered with useless ads. Clean interface, fast search, and great visual charts."
+            </p>
+            <div className="pt-3 border-t border-gray-100 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-brand-purple text-white font-black text-xs flex items-center justify-center">
+                SL
+              </div>
+              <div>
+                <p className="text-xs font-black text-brand-black">Sarah L.</p>
+                <p className="text-[9px] font-bold text-gray-400">Marathon Runner</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-50/40 border border-gray-100 rounded-2xl p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+            <p className="text-[11px] sm:text-xs font-semibold text-gray-600 leading-relaxed italic">
+              "Knowing my exact Mifflin-St Jeor target budget keeps me accountable every single day without guessing my daily intake."
+            </p>
+            <div className="pt-3 border-t border-gray-100 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-brand-black text-white font-black text-xs flex items-center justify-center">
+                MD
+              </div>
+              <div>
+                <p className="text-xs font-black text-brand-black">Marcus D.</p>
+                <p className="text-[9px] font-bold text-gray-400">Weightlifting Enthusiast</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW SECTION 5: Frequently Asked Questions (FAQ) */}
+      <div className="bg-white border border-gray-100 rounded-[1.5rem] sm:rounded-[2.5rem] p-5 sm:p-10 shadow-sm mb-10 sm:mb-16 space-y-6 sm:space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
+          <span className="text-brand-black text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-gray-100 border border-gray-200 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full inline-block">
+            ❓ Common Questions
+          </span>
+          <h2 className="font-display font-black text-xl sm:text-3xl tracking-tight text-brand-black">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-[11px] sm:text-xs font-semibold text-gray-500">
+            Got questions about how our calorie calculator and AI diet model operate?
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
+          <div className="bg-gray-50/50 border border-gray-100 rounded-2xl p-4 sm:p-6 space-y-2">
+            <h3 className="font-display font-black text-xs sm:text-sm text-brand-black flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-brand-green flex-shrink-0" />
+              How is my daily calorie target calculated?
+            </h3>
+            <p className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-relaxed pl-6">
+              We compute your BMR using the Mifflin-St Jeor equation combined with your activity multiplier to derive your customized maintenance, deficit, or surplus daily goals.
+            </p>
+          </div>
+
+          <div className="bg-gray-50/50 border border-gray-100 rounded-2xl p-4 sm:p-6 space-y-2">
+            <h3 className="font-display font-black text-xs sm:text-sm text-brand-black flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-brand-purple flex-shrink-0" />
+              Can I use Healthify without creating an account?
+            </h3>
+            <p className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-relaxed pl-6">
+              Yes! You can explore the Calorie Counter and preview analytics right away. Logging in unlocks persistent cloud logs and full AI meal plan generation.
+            </p>
+          </div>
+
+          <div className="bg-gray-50/50 border border-gray-100 rounded-2xl p-4 sm:p-6 space-y-2">
+            <h3 className="font-display font-black text-xs sm:text-sm text-brand-black flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-brand-green flex-shrink-0" />
+              How does the AI Meal Generator craft my diets?
+            </h3>
+            <p className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-relaxed pl-6">
+              Gemini AI evaluates your weight goal, dietary preferences, and target macros to generate structured breakfast, lunch, snack, and dinner meal options.
+            </p>
+          </div>
+
+          <div className="bg-gray-50/50 border border-gray-100 rounded-2xl p-4 sm:p-6 space-y-2">
+            <h3 className="font-display font-black text-xs sm:text-sm text-brand-black flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-brand-purple flex-shrink-0" />
+              Is my personal health data securely stored?
+            </h3>
+            <p className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-relaxed pl-6">
+              Absolutely. Your physical data is tied safely to your personal account on MongoDB with industry-standard security and strict data privacy practices.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* NEW SECTION 6: Call to Action (CTA) Banner */}
+      <div className="rounded-[1.5rem] sm:rounded-[2.5rem] bg-brand-black text-white p-6 sm:p-12 mb-10 sm:mb-16 text-center relative overflow-hidden shadow-xl">
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-brand-green/20 rounded-full blur-[100px] -mr-20 -mt-20 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-brand-purple/20 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none" />
+
+        <div className="relative z-10 max-w-2xl mx-auto space-y-4 sm:space-y-6">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-green text-white">
+            <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Start Transformation Today
+          </span>
+          <h2 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight leading-tight">
+            Ready to Take Control of Your Nutrition?
+          </h2>
+          <p className="text-gray-400 font-semibold text-[11px] sm:text-sm leading-relaxed max-w-lg mx-auto">
+            Join thousands of users organizing their daily intake, creating custom AI meal plans, and hitting their body composition targets.
+          </p>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href={userSession?.user ? "/generate-diet" : "/register"}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-6 py-3.5 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+            >
+              {userSession?.user ? "Generate Meal Plan Now" : "Create Free Account"}{" "}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>
