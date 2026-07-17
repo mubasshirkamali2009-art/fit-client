@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ item, related });
         }
 
-        // List lookup by type (used by the listing page)
+        // List lookup by type (used by the listing page) — unchanged behavior
         if (!type || !["tool", "exercise", "muscle"].includes(type)) {
             return NextResponse.json(
                 { message: "Valid type is required (tool | exercise | muscle)" },
