@@ -1,7 +1,13 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, Db } from "mongodb";
 
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/fittrack";
 const options = {};
+
+// Force the db name explicitly so it always matches lib/auth.ts's
+// client.db("fittrack") — relying on client.db() with no argument
+// silently falls back to whatever (or no) database name is embedded
+// in MONGODB_URI, which is what caused queries to return 0 results.
+const DB_NAME = "fittrack";
 
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
@@ -20,6 +26,11 @@ if (process.env.NODE_ENV === "development") {
 } else {
   client = new MongoClient(uri, options);
   clientPromise = client.connect();
+}
+
+export async function getDb(): Promise<Db> {
+  const connectedClient = await clientPromise;
+  return connectedClient.db(DB_NAME); // explicit — always "fittrack"
 }
 
 export default clientPromise;
