@@ -32,6 +32,7 @@ const GenerateDietPage = () => {
 
   const [dietPlan, setDietPlan] = useState<DietPlan | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isLoadingPlan, setIsLoadingPlan] = useState(true);
   const [error, setError] = useState('');
 
   // --- Regenerate flow state ---
@@ -46,28 +47,44 @@ const GenerateDietPage = () => {
     }
   }, [userSession, isLoading, router]);
 
-  // Load plan from localStorage if it was previously generated
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const cached = localStorage.getItem('fit_diet_plan');
-      if (cached) {
-        setDietPlan(JSON.parse(cached));
-      }
-    }
-  }, []);
+  const getToken = async () => {
+    const session = await import('@/lib/auth-client').then(m => m.authClient.getSession()) as any;
+    return session?.data?.session?.token || '';
+  };
 
-  if (isLoading || !userSession?.user) {
+  // Load the plan for THIS logged-in user from MongoDB (via the backend),
+  // not localStorage — so it never leaks across accounts on a shared browser.
+  useEffect(() => {
+    const loadPlan = async () => {
+      if (!userSession?.user) return;
+      setIsLoadingPlan(true);
+      try {
+        const token = await getToken();
+        const res = await fetch(`${AI_API_URL}/diet-plan`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setDietPlan(data.plan || null);
+        }
+      } catch (err) {
+        console.error('Failed to load saved diet plan:', err);
+      } finally {
+        setIsLoadingPlan(false);
+      }
+    };
+    if (!isLoading && userSession?.user) {
+      loadPlan();
+    }
+  }, [isLoading, userSession]);
+
+  if (isLoading || !userSession?.user || isLoadingPlan) {
     return (
       <div className="flex-1 flex items-center justify-center py-20">
         <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-green"></div>
       </div>
     );
   }
-
-  const getToken = async () => {
-    const session = await import('@/lib/auth-client').then(m => m.authClient.getSession()) as any;
-    return session?.data?.session?.token || '';
-  };
 
   // First-time generation — no prior plan, no extra questions
   const handleGenerateDiet = async () => {
@@ -95,10 +112,7 @@ const GenerateDietPage = () => {
 
       if (res.ok) {
         const plan = await res.json();
-        setDietPlan(plan);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('fit_diet_plan', JSON.stringify(plan));
-        }
+        setDietPlan(plan); // backend already persisted it to MongoDB for this user
       } else {
         const data = await res.json();
         setError(data.error || 'Failed to generate diet plan. Please try again.');
@@ -185,10 +199,7 @@ const GenerateDietPage = () => {
 
       if (res.ok) {
         const plan = await res.json();
-        setDietPlan(plan);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('fit_diet_plan', JSON.stringify(plan));
-        }
+        setDietPlan(plan); // backend already persisted it to MongoDB for this user
       } else {
         const data = await res.json();
         setError(data.error || 'Failed to regenerate diet plan. Please try again.');

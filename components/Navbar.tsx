@@ -6,12 +6,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import { authClient } from '@/lib/auth-client';
 import { useToast } from '@/context/ToastContext';
-import { Menu, X, Dumbbell, User, LogOut } from 'lucide-react';
+import { Menu, X, Dumbbell, User, LogOut, ChevronDown } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const { userSession, isLoading } = useApp();
   const { showToast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -50,13 +51,6 @@ const Navbar: React.FC = () => {
               Home
             </Link>
             <Link
-              href="/about"
-              className={`text-sm font-semibold transition-colors duration-200 ${isActive('/about') ? 'text-brand-green' : 'text-gray-600 hover:text-brand-green'
-                }`}
-            >
-              About
-            </Link>
-            <Link
               href="/nutrition"
               className={`text-sm font-semibold transition-colors duration-200 ${isActive('/nutrition') ? 'text-brand-green' : 'text-gray-600 hover:text-brand-green'
                 }`}
@@ -70,21 +64,23 @@ const Navbar: React.FC = () => {
             >
               Know Base
             </Link>
-            <Link
-              href="/blog"
-              className={`text-sm font-semibold transition-colors duration-200 ${isActive('/blog') ? 'text-brand-green' : 'text-gray-600 hover:text-brand-green'
-                }`}
-            >
-              Blog
-            </Link>
             {userSession?.user && (
-              <Link
-                href="/generate-diet"
-                className={`text-sm font-semibold transition-colors duration-200 ${isActive('/generate-diet') ? 'text-brand-purple' : 'text-gray-600 hover:text-brand-purple'
-                  }`}
-              >
-                AI Eating Plan
-              </Link>
+              <>
+                <Link
+                  href="/generate-diet"
+                  className={`text-sm font-semibold transition-colors duration-200 ${isActive('/generate-diet') ? 'text-brand-purple' : 'text-gray-600 hover:text-brand-purple'
+                    }`}
+                >
+                  AI Eating Plan
+                </Link>
+                <Link
+                  href="/airoutine"
+                  className={`text-sm font-semibold transition-colors duration-200 ${isActive('/airoutine') ? 'text-brand-purple' : 'text-gray-600 hover:text-brand-purple'
+                    }`}
+                >
+                  AI Routine
+                </Link>
+              </>
             )}
           </div>
 
@@ -93,9 +89,9 @@ const Navbar: React.FC = () => {
             {!isLoading && (
               <>
                 {userSession?.user ? (
-                  <div className="flex items-center gap-3">
-                    <Link
-                      href="/profile"
+                  <div className="flex items-center gap-3 relative">
+                    <button
+                      onClick={() => setIsProfileOpen(!isProfileOpen)}
                       className="bg-brand-tint-green border border-brand-green/20 text-brand-green py-1 px-3 rounded-full flex items-center gap-1.5 text-xs font-bold hover:bg-brand-tint-green/80 transition-all"
                     >
                       {userSession.user.image ? (
@@ -108,7 +104,35 @@ const Navbar: React.FC = () => {
                         <User className="h-3.5 w-3.5" />
                       )}
                       <span className="max-w-[80px] truncate">{userSession.user.name}</span>
-                    </Link>
+                      <ChevronDown className={`h-3 w-3 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {isProfileOpen && (
+                      <div className="absolute top-full right-0 mt-2 w-44 bg-white border border-gray-100 rounded-xl shadow-lg py-2 z-50">
+                        <Link
+                          href="/profile"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="block px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-green"
+                        >
+                          Profile
+                        </Link>
+                        <Link
+                          href="/about"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="block px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-green"
+                        >
+                          About
+                        </Link>
+                        <Link
+                          href="/blog"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="block px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-green"
+                        >
+                          Blog
+                        </Link>
+                      </div>
+                    )}
+
                     <button
                       onClick={handleLogout}
                       className="text-gray-600 hover:text-red-500 transition-colors p-2 hover:bg-red-50 rounded-full"
@@ -236,6 +260,14 @@ const Navbar: React.FC = () => {
                   }`}
               >
                 AI Eating Plan
+              </Link>
+              <Link
+                href="/airoutine"
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-semibold ${isActive('/airoutine') ? 'bg-brand-tint-purple text-brand-purple' : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+              >
+                AI Routine
               </Link>
               <Link
                 href="/profile"
