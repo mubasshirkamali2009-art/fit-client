@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import DashboardLayout from '@/components/DashboardLayout';
-import { Sparkles, Utensils, AlertCircle, Apple, Flame, Info, CheckCircle } from 'lucide-react';
+import { Sparkles, Utensils, AlertCircle, Apple, Flame, Info, CheckCircle, RefreshCw, X } from 'lucide-react';
 
 interface Meal {
   name: string;
@@ -19,6 +19,13 @@ interface DietPlan {
   dietitianTips: string[];
 }
 
+interface RegenQuestion {
+  id: string;
+  question: string;
+}
+
+const AI_API_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/ai`;
+
 const GenerateDietPage = () => {
   const { userSession, isLoading, profile } = useApp();
   const router = useRouter();
@@ -26,6 +33,12 @@ const GenerateDietPage = () => {
   const [dietPlan, setDietPlan] = useState<DietPlan | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState('');
+
+  // --- Regenerate flow state ---
+  const [isFetchingQuestions, setIsFetchingQuestions] = useState(false);
+  const [regenQuestions, setRegenQuestions] = useState<RegenQuestion[] | null>(null);
+  const [regenAnswers, setRegenAnswers] = useState<Record<string, string>>({});
+  const [showRegenModal, setShowRegenModal] = useState(false);
 
   useEffect(() => {
     if (!isLoading && (!userSession || !userSession.user)) {
@@ -51,14 +64,19 @@ const GenerateDietPage = () => {
     );
   }
 
+  const getToken = async () => {
+    const session = await import('@/lib/auth-client').then(m => m.authClient.getSession()) as any;
+    return session?.data?.session?.token || '';
+  };
+
+  // First-time generation — no prior plan, no extra questions
   const handleGenerateDiet = async () => {
     setIsGenerating(true);
     setError('');
     try {
-      const session = await import('@/lib/auth-client').then(m => m.authClient.getSession()) as any;
-      const token = session?.data?.session?.token || '';
+      const token = await getToken();
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/ai`, {
+      const res = await fetch(AI_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,10 +110,104 @@ const GenerateDietPage = () => {
     }
   };
 
+  // Step 1 of regenerate: ask the AI to produce 1-2 clarifying questions
+  // based on the current plan. Nothing here is hardcoded — the AI decides
+  // what to ask depending on context (e.g. "did the meals feel too heavy?",
+  // "want more variety in protein sources?", etc).
+  const handleRequestRegenerate = async () => {
+    setIsFetchingQuestions(true);
+    setError('');
+    try {
+      const token = await getToken();
+
+      const res = await fetch(AI_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'regenerate-diet-questions',
+          currentPlan: dietPlan,
+          height: profile.height,
+          weight: profile.weight,
+          age: profile.age,
+          gender: profile.gender || 'male',
+          goal: profile.goal,
+          activityLevel: profile.activityLevel
+        })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        // Expected shape: { questions: [{ id: string, question: string }, ...] }
+        setRegenQuestions(data.questions || []);
+        setRegenAnswers({});
+        setShowRegenModal(true);
+      } else {
+        const data = await res.json();
+        setError(data.error || 'Could not prepare regenerate questions. Please try again.');
+      }
+    } catch (err) {
+      setError('Connection error. Could not contact the AI service.');
+    } finally {
+      setIsFetchingQuestions(false);
+    }
+  };
+
+  // Step 2 of regenerate: send the user's answers along with the old plan
+  // so the AI can produce a new, adjusted plan.
+  const handleSubmitRegenerate = async () => {
+    setShowRegenModal(false);
+    setIsGenerating(true);
+    setError('');
+    try {
+      const token = await getToken();
+
+      const res = await fetch(AI_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          action: 'generate-diet',
+          height: profile.height,
+          weight: profile.weight,
+          age: profile.age,
+          gender: profile.gender || 'male',
+          goal: profile.goal,
+          activityLevel: profile.activityLevel,
+          previousPlan: dietPlan,
+          regenerateAnswers: regenAnswers
+        })
+      });
+
+      if (res.ok) {
+        const plan = await res.json();
+        setDietPlan(plan);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('fit_diet_plan', JSON.stringify(plan));
+        }
+      } else {
+        const data = await res.json();
+        setError(data.error || 'Failed to regenerate diet plan. Please try again.');
+      }
+    } catch (err) {
+      setError('Connection error. Could not contact the AI service.');
+    } finally {
+      setIsGenerating(false);
+      setRegenQuestions(null);
+      setRegenAnswers({});
+    }
+  };
+
+  const busy = isGenerating || isFetchingQuestions;
+
   return (
     <DashboardLayout>
       <div className="space-y-10">
-        
+
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
@@ -107,14 +219,27 @@ const GenerateDietPage = () => {
             </p>
           </div>
 
-          <button
-            onClick={handleGenerateDiet}
-            disabled={isGenerating}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-brand-purple hover:bg-brand-purple/95 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all active:scale-95 disabled:opacity-50 cursor-pointer shadow-lg shadow-brand-purple/10"
-          >
-            <Sparkles className="h-4 w-4" />
-            {isGenerating ? 'Analyzing Metrics...' : 'Generate Diet Plan'}
-          </button>
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            {dietPlan && (
+              <button
+                onClick={handleRequestRegenerate}
+                disabled={busy}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-white border border-gray-200 hover:bg-gray-50 text-brand-black font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+              >
+                <RefreshCw className={`h-4 w-4 ${isFetchingQuestions ? 'animate-spin' : ''}`} />
+                {isFetchingQuestions ? 'Preparing Questions...' : 'Regenerate'}
+              </button>
+            )}
+
+            <button
+              onClick={handleGenerateDiet}
+              disabled={busy}
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-brand-purple hover:bg-brand-purple/95 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all active:scale-95 disabled:opacity-50 cursor-pointer shadow-lg shadow-brand-purple/10"
+            >
+              <Sparkles className="h-4 w-4" />
+              {isGenerating ? 'Analyzing Metrics...' : dietPlan ? 'Generate New' : 'Generate Diet Plan'}
+            </button>
+          </div>
         </div>
 
         {error && (
@@ -151,7 +276,7 @@ const GenerateDietPage = () => {
 
         {!isGenerating && dietPlan && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start animate-in fade-in duration-300">
-            
+
             {/* Left/Middle: Meal cards (2/3 width) */}
             <div className="lg:col-span-2 space-y-6">
               <h2 className="font-display font-black text-xl text-brand-black flex items-center gap-2 border-b border-gray-50 pb-4">
@@ -180,7 +305,7 @@ const GenerateDietPage = () => {
 
             {/* Right: Macros Split & Dietitian Tips (1/3 width) */}
             <div className="space-y-6">
-              
+
               {/* Macros split card */}
               <div className="bg-brand-black text-white rounded-[2rem] p-7 space-y-6 shadow-md relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-36 h-36 bg-brand-purple/10 rounded-full blur-3xl -z-10" />
@@ -255,6 +380,57 @@ const GenerateDietPage = () => {
         )}
 
       </div>
+
+      {/* Regenerate Questions Modal */}
+      {showRegenModal && regenQuestions && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-[2rem] p-8 max-w-md w-full space-y-6 shadow-xl relative">
+            <button
+              onClick={() => { setShowRegenModal(false); setRegenQuestions(null); }}
+              className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 cursor-pointer"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div>
+              <h3 className="font-display font-black text-xl text-brand-black flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-brand-purple" /> Quick Question{regenQuestions.length > 1 ? 's' : ''}
+              </h3>
+              <p className="text-xs font-semibold text-gray-400 mt-1">
+                Help the AI adjust your next plan.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {regenQuestions.length === 0 && (
+                <p className="text-xs font-semibold text-gray-500">
+                  No extra input needed — the AI will regenerate based on your existing plan and goals.
+                </p>
+              )}
+
+              {regenQuestions.map((q) => (
+                <div key={q.id} className="space-y-2">
+                  <label className="text-xs font-bold text-gray-700">{q.question}</label>
+                  <input
+                    type="text"
+                    value={regenAnswers[q.id] || ''}
+                    onChange={(e) => setRegenAnswers(prev => ({ ...prev, [q.id]: e.target.value }))}
+                    placeholder="Your answer..."
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-brand-purple"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={handleSubmitRegenerate}
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-brand-purple hover:bg-brand-purple/95 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition-all active:scale-95 cursor-pointer"
+            >
+              <RefreshCw className="h-4 w-4" /> Regenerate Plan
+            </button>
+          </div>
+        </div>
+      )}
     </DashboardLayout>
   );
 };
