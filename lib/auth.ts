@@ -21,9 +21,34 @@ if (!globalWithMongo._mongoClient) {
 
 const db = client.db("fittrack");
 
+// ─── Safe base URL resolution ─────────────────────────────────────────────────
+// Prevents "Invalid base URL" crashes during build if the env var is missing,
+// empty, or malformed (e.g. missing "https://").
+function resolveBaseUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_APP_URL?.trim();
+
+  if (!raw) return "http://localhost:3000";
+
+  // If someone forgot the protocol, add one instead of crashing the build.
+  const candidate = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+
+  try {
+    // Throws if still invalid (e.g. stray quotes, spaces inside the string).
+    new URL(candidate);
+    return candidate;
+  } catch {
+    console.warn(
+      `[auth] NEXT_PUBLIC_APP_URL="${raw}" is not a valid URL. Falling back to http://localhost:3000`
+    );
+    return "http://localhost:3000";
+  }
+}
+
+const baseURL = resolveBaseUrl();
+
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET!,
-  baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  baseURL,
 
   database: mongodbAdapter(db, {
     client,
