@@ -70,6 +70,7 @@ const AiRoutinePage = () => {
         }
     }, [userSession, isLoading, router]);
 
+    // Fetch saved routines from database on refresh
     useEffect(() => {
         if (!userSession?.user?.id) return;
         (async () => {
@@ -80,12 +81,12 @@ const AiRoutinePage = () => {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    if (data.routines && data.routines.length > 0) {
+                    if (data.routines && Array.isArray(data.routines) && data.routines.length > 0) {
                         setRoutines(data.routines);
                     }
                 }
-            } catch {
-                // Silently ignore — user just won't see a cached routine.
+            } catch (err) {
+                console.error("Failed to load stored routines from DB on mount:", err);
             }
         })();
     }, [userSession?.user?.id]);
@@ -115,8 +116,6 @@ const AiRoutinePage = () => {
         return res.json();
     };
 
-    // Persists the latest 3 routines to MongoDB (via the Express backend) so
-    // they're tied to this user's account, not just this browser.
     const saveRoutinesToDB = async (newRoutines: Routine[]) => {
         try {
             const token = await getToken();
@@ -128,15 +127,11 @@ const AiRoutinePage = () => {
                 },
                 body: JSON.stringify({ routines: newRoutines }),
             });
-        } catch {
-            // Non-fatal — the routines are still shown in the UI even if the save fails.
+        } catch (err) {
+            console.error("Express secondary save backup failure:", err);
         }
     };
 
-    // Step 1 (first time / "Get My Routines"): ask the AI to generate a few
-    // lifestyle / hobby / hypothetical questions. Nothing hardcoded — the AI
-    // decides what's worth asking based on the goal and any free text already
-    // provided.
     const handleStart = async () => {
         setError('');
         setIsFetchingQuestions(true);
@@ -158,7 +153,6 @@ const AiRoutinePage = () => {
         }
     };
 
-    // Step 2: submit lifestyle answers + free text -> generate 3 routines
     const handleGenerateRoutines = async () => {
         setShowQuestionModal(false);
         setIsGenerating(true);
@@ -189,7 +183,6 @@ const AiRoutinePage = () => {
         }
     };
 
-    // Regenerate flow: ask what the user didn't like about current routines
     const handleRequestRegenerate = async () => {
         setError('');
         setIsFetchingQuestions(true);
@@ -255,7 +248,6 @@ const AiRoutinePage = () => {
     return (
         <DashboardLayout>
             <div className="space-y-10">
-
                 {/* Page Header */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
@@ -294,7 +286,7 @@ const AiRoutinePage = () => {
                     </div>
                 </div>
 
-                {/* Free-text input — like a normal chat box, always available */}
+                {/* Free-text input */}
                 <div className="bg-white border border-gray-100 rounded-3xl p-6 space-y-3 shadow-sm">
                     <label className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-gray-500">
                         <MessageSquareText className="h-4 w-4 text-brand-purple" />
@@ -343,7 +335,6 @@ const AiRoutinePage = () => {
 
                 {!isGenerating && routines && routines.length > 0 && (
                     <div className="space-y-6 animate-in fade-in duration-300">
-
                         {/* Routine selector tabs */}
                         <div className="flex flex-wrap gap-3">
                             {routines.map((r, idx) => (
@@ -351,8 +342,8 @@ const AiRoutinePage = () => {
                                     key={idx}
                                     onClick={() => { setSelectedRoutineIdx(idx); setExpandedDay(0); }}
                                     className={`px-5 py-3 rounded-2xl text-left transition-all cursor-pointer border ${selectedRoutineIdx === idx
-                                            ? 'bg-brand-black text-white border-brand-black shadow-md'
-                                            : 'bg-white text-brand-black border-gray-100 hover:border-gray-200'
+                                        ? 'bg-brand-black text-white border-brand-black shadow-md'
+                                        : 'bg-white text-brand-black border-gray-100 hover:border-gray-200'
                                         }`}
                                 >
                                     <div className="text-xs font-black">{r.name}</div>
@@ -379,8 +370,8 @@ const AiRoutinePage = () => {
                                                     <span className="text-xs font-black text-brand-black">{d.day}</span>
                                                     <span
                                                         className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full ${d.focus === 'Rest'
-                                                                ? 'bg-gray-100 text-gray-500'
-                                                                : 'bg-brand-tint-green text-brand-green'
+                                                            ? 'bg-gray-100 text-gray-500'
+                                                            : 'bg-brand-tint-green text-brand-green'
                                                             }`}
                                                     >
                                                         {d.focus}
@@ -415,7 +406,7 @@ const AiRoutinePage = () => {
                 )}
             </div>
 
-            {/* Questions Modal — shared for both initial and regenerate flows */}
+            {/* Questions Modal */}
             {showQuestionModal && questions && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-[2rem] p-8 max-w-md w-full space-y-6 shadow-xl relative max-h-[85vh] overflow-y-auto">
