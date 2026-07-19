@@ -43,7 +43,7 @@ const SLIDE_INTERVAL = 5000; // 5s
 const Page = () => {
   const { userSession, foodLogs, profile } = useApp();
   const [activeSlide, setActiveSlide] = useState(0);
-  const totalSlides = 2;
+  const totalSlides = 4;
 
   const goToSlide = useCallback((index: number) => {
     setActiveSlide(((index % totalSlides) + totalSlides) % totalSlides);
@@ -235,6 +235,66 @@ const Page = () => {
               </div>
             </div>
           </div>
+
+          {/* Slide 3: AI Workout Routine Hero */}
+          <div className="relative w-full flex-shrink-0 py-10 px-5 sm:py-16 sm:px-16 text-center">
+            <div className="absolute top-0 right-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-purple/20 rounded-full blur-[90px] sm:blur-[120px] -mr-16 -mt-16 sm:-mr-36 sm:-mt-36" />
+            <div className="absolute bottom-0 left-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-green/20 rounded-full blur-[90px] sm:blur-[120px] -ml-16 -mb-16 sm:-ml-36 sm:-mb-36" />
+
+            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-purple text-white border border-brand-purple/20 shadow-lg shadow-brand-purple/20">
+                <Dumbbell className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> AI-Powered Workout Plans
+              </span>
+              <h1 className="font-display font-black text-2xl sm:text-5xl lg:text-6xl tracking-tight leading-tight sm:leading-none text-white">
+                Let AI design your <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-[#a3e635] to-brand-green">
+                  weekly workout routine.
+                </span>
+              </h1>
+              <p className="text-gray-400 font-semibold text-[11px] sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed px-3 sm:px-0">
+                Answer a few quick questions and get 3 personalized weekly training routines — tailored to your goals, equipment, and schedule. Regenerate anytime.
+              </p>
+
+              <div className="pt-3 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+                <Link
+                  href="/ai-routine"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-purple text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-purple/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+                >
+                  Build My Routine <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Slide 4: Calorie Counter Hero */}
+          <div className="relative w-full flex-shrink-0 py-10 px-5 sm:py-16 sm:px-16 text-center">
+            <div className="absolute top-0 left-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-green/20 rounded-full blur-[90px] sm:blur-[120px] -ml-16 -mt-16 sm:-ml-36 sm:-mt-36" />
+            <div className="absolute bottom-0 right-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-purple/20 rounded-full blur-[90px] sm:blur-[120px] -mr-16 -mb-16 sm:-mr-36 sm:-mb-36" />
+
+            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-green text-white border border-brand-green/20 shadow-lg shadow-brand-green/20">
+                <Flame className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Instant Calorie Tracking
+              </span>
+              <h1 className="font-display font-black text-2xl sm:text-5xl lg:text-6xl tracking-tight leading-tight sm:leading-none text-white">
+                Log every meal in <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-[#a3e635] to-brand-purple">
+                  seconds, not minutes.
+                </span>
+              </h1>
+              <p className="text-gray-400 font-semibold text-[11px] sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed px-3 sm:px-0">
+                Search our 10,000+ food database, adjust portions instantly, and track your daily calorie budget with zero friction — no login required to try it.
+              </p>
+
+              <div className="pt-3 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+                <Link
+                  href="/nutrition"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+                >
+                  Count My Calories <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Prev/Next Arrows */}
@@ -371,11 +431,11 @@ const Page = () => {
             Everything you need. Nothing you don't.
           </h2>
           <p className="text-[11px] sm:text-xs font-semibold text-gray-500">
-            We removed the clutter to focus on what actually drives results: calorie tracking and customized meal planning.
+            We removed the clutter to focus on what actually drives results: calorie tracking, AI meal planning, and AI workout routines.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 pt-3 sm:pt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 pt-3 sm:pt-6">
           {/* Feature 1 */}
           <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 space-y-4 sm:space-y-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div className="space-y-3 sm:space-y-4">
@@ -414,7 +474,26 @@ const Page = () => {
             </div>
           </div>
 
-          {/* Feature 3 */}
+          {/* Feature 3: AI Workout Routine */}
+          <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 space-y-4 sm:space-y-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="bg-brand-tint-purple text-brand-purple p-3 sm:p-4 rounded-xl sm:rounded-2xl w-fit">
+                <Dumbbell className="h-5 w-5 sm:h-6 sm:w-6" />
+              </div>
+              <h3 className="font-display font-black text-base sm:text-xl text-brand-black">AI Workout Routine</h3>
+              <p className="text-[11px] sm:text-xs font-semibold text-gray-500 leading-relaxed">
+                The AI asks a few personal questions, then builds 3 weekly workout routines matched to your goals, injuries, and available equipment.
+              </p>
+            </div>
+            <div className="pt-3 sm:pt-4 border-t border-gray-50 flex items-center justify-between text-[11px] sm:text-xs font-extrabold text-brand-purple">
+              <span>Regenerate anytime</span>
+              <Link href="/ai-routine" className="hover:underline flex items-center gap-1">
+                Get Routine <ChevronRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Feature 4 */}
           <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 space-y-4 sm:space-y-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div className="space-y-3 sm:space-y-4">
               <div className="bg-gray-100 text-brand-black p-3 sm:p-4 rounded-xl sm:rounded-2xl w-fit">
@@ -669,7 +748,7 @@ const Page = () => {
               Can I use Healthify without creating an account?
             </h3>
             <p className="text-[10px] sm:text-xs text-gray-500 font-semibold leading-relaxed pl-6">
-              Yes! You can explore the Calorie Counter and preview analytics right away. Logging in unlocks persistent cloud logs and full AI meal plan generation.
+              Yes! You can explore the Calorie Counter and preview analytics right away. Logging in unlocks persistent cloud logs, full AI meal plan generation, and AI workout routines.
             </p>
           </div>
 
