@@ -341,7 +341,7 @@ const Page = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 pt-1 sm:pt-2 md:pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 pt-1 sm:pt-2 md:pt-4">
 
           {/* Chart 1: Healthy vs Unhealthy calories (Bar Chart) */}
           <div className="border border-gray-50 bg-gray-50/20 p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl md:rounded-3xl space-y-2.5 sm:space-y-3 md:space-y-4">
@@ -368,7 +368,7 @@ const Page = () => {
           </div>
 
           {/* Chart 2: Today's Budget Allocation (Pie Chart) */}
-          <div className="border border-gray-50 bg-gray-50/20 p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl md:rounded-3xl flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-5 md:gap-6">
+          <div className="border border-gray-50 bg-gray-50/20 p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl md:rounded-3xl flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between items-center gap-4 sm:gap-5 md:gap-6">
             <div className="space-y-2.5 sm:space-y-3 md:space-y-4 max-w-xs w-full">
               <div>
                 <h3 className="font-display font-black text-xs sm:text-sm md:text-base text-gray-800">Calorie Goal Completion</h3>
@@ -528,8 +528,8 @@ const Page = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 relative">
-          <div className="bg-gray-50/50 border border-gray-100 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl md:rounded-3xl relative space-y-2.5 sm:space-y-3 hover:border-brand-green/30 transition-all">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 relative">
+          <div className="bg-gray-50/50 border border-gray-100 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl md:rounded-3xl relative space-y-2.5 sm:space-y-3 hover:border-brand-green/30 transition-all sm:col-span-2 md:col-span-1">
             <div className="flex items-center justify-between">
               <span className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-brand-green text-white font-black text-[10px] sm:text-xs md:text-sm flex items-center justify-center">
                 01
@@ -587,7 +587,7 @@ const Page = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 relative z-10">
           <div className="bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-2.5 sm:space-y-3 backdrop-blur-sm hover:bg-white/10 transition-all">
             <div className="p-2.5 sm:p-3 bg-brand-green/20 text-brand-green rounded-lg sm:rounded-xl w-fit">
               <Dumbbell className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
@@ -608,7 +608,7 @@ const Page = () => {
             </p>
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-2.5 sm:space-y-3 backdrop-blur-sm hover:bg-white/10 transition-all">
+          <div className="bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-2.5 sm:space-y-3 backdrop-blur-sm hover:bg-white/10 transition-all sm:col-span-2 lg:col-span-1">
             <div className="p-2.5 sm:p-3 bg-white/20 text-white rounded-lg sm:rounded-xl w-fit">
               <Target className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
             </div>
@@ -669,7 +669,7 @@ const Page = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           <div className="bg-gray-50/40 border border-gray-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 flex flex-col justify-between">
             <p className="text-[10px] sm:text-[11px] md:text-xs font-semibold text-gray-600 leading-relaxed italic">
               "The Gemini AI plan generation is ridiculously fast. It builds realistic whole-day meal plans matching my macros perfectly."
@@ -700,7 +700,7 @@ const Page = () => {
             </div>
           </div>
 
-          <div className="bg-gray-50/40 border border-gray-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 flex flex-col justify-between">
+          <div className="bg-gray-50/40 border border-gray-100 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 flex flex-col justify-between sm:col-span-2 md:col-span-1">
             <p className="text-[10px] sm:text-[11px] md:text-xs font-semibold text-gray-600 leading-relaxed italic">
               "Knowing my exact Mifflin-St Jeor target budget keeps me accountable every single day without guessing my daily intake."
             </p>
@@ -803,7 +803,7 @@ const Page = () => {
       </div>
 
       {/* Trust Elements */}
-      <div className="bg-gray-50 border border-gray-100 rounded-xl sm:rounded-2xl md:rounded-[2rem] p-4 sm:p-5 md:p-8 flex flex-col md:flex-row items-center justify-around gap-2.5 sm:gap-3 md:gap-6 text-center md:text-left">
+      <div className="bg-gray-50 border border-gray-100 rounded-xl sm:rounded-2xl md:rounded-[2rem] p-4 sm:p-5 md:p-8 flex flex-col sm:flex-row flex-wrap items-center justify-center md:justify-around gap-2.5 sm:gap-3 md:gap-6 text-center md:text-left">
         <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
           <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 text-brand-green flex-shrink-0" />
           <span className="text-[10px] sm:text-[11px] md:text-xs font-bold text-gray-700">Seeded MongoDB Food Logs</span>
