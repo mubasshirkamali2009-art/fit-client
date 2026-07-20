@@ -152,37 +152,38 @@ const Page = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
       {/* Hero Slider Section */}
-      <div className="relative rounded-[1.5rem] sm:rounded-[2.5rem] bg-brand-black text-white overflow-hidden mb-8 sm:mb-12 shadow-xl">
+      <div className="relative rounded-[1.25rem] sm:rounded-[2rem] lg:rounded-[2.5rem] bg-brand-black text-white overflow-hidden mb-6 sm:mb-8 lg:mb-12 shadow-xl">
+        {/* Carousel Track */}
         <div
           className="flex transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
           {/* Slide 1: Main Hero */}
-          <div className="relative w-full flex-shrink-0 py-10 px-5 sm:py-16 sm:px-16 text-center">
-            <div className="absolute top-0 right-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-green/20 rounded-full blur-[90px] sm:blur-[120px] -mr-16 -mt-16 sm:-mr-36 sm:-mt-36" />
-            <div className="absolute bottom-0 left-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-purple/20 rounded-full blur-[90px] sm:blur-[120px] -ml-16 -mb-16 sm:-ml-36 sm:-mb-36" />
+          <div className="relative w-full flex-shrink-0 py-8 px-4 sm:py-12 sm:px-8 lg:py-16 lg:px-16 text-center">
+            <div className="absolute top-0 right-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-green/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -mr-12 -mt-12 sm:-mr-24 sm:-mt-24 lg:-mr-36 lg:-mt-36 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-purple/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -ml-12 -mb-12 sm:-ml-24 sm:-mb-24 lg:-ml-36 lg:-mb-36 pointer-events-none" />
 
-            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-green text-white border border-brand-green/20 shadow-lg shadow-brand-green/20">
+            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-5 lg:space-y-6">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-green text-white border border-brand-green/20 shadow-lg shadow-brand-green/20">
                 <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Premium Healthify Assistant
               </span>
-              <h1 className="font-display font-black text-2xl sm:text-5xl lg:text-6xl tracking-tight leading-tight sm:leading-none text-white">
+              <h1 className="font-display font-black text-xl sm:text-4xl lg:text-6xl tracking-tight leading-tight sm:leading-tight lg:leading-none text-white">
                 Simplify your nutrition. <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-[#a3e635] to-brand-purple">
                   Achieve your target.
                 </span>
               </h1>
-              <p className="text-gray-400 font-semibold text-[11px] sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed px-3 sm:px-0">
+              <p className="text-gray-400 font-semibold text-[11px] sm:text-xs lg:text-base max-w-xl mx-auto leading-relaxed px-1 sm:px-0">
                 The ultimate companion to track daily calorie consumption, calculate your body metrics, and generate tailored, full-day eating plans using Gemini AI.
               </p>
 
-              <div className="pt-3 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+              <div className="pt-2 sm:pt-4 lg:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
                 {userSession?.user ? (
                   <Link
                     href="/profile"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-5 py-2.5 sm:px-7 sm:py-3.5 lg:px-8 lg:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
                   >
                     Go to Profile Dashboard <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </Link>
@@ -190,13 +191,13 @@ const Page = () => {
                   <>
                     <Link
                       href="/register"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-5 py-2.5 sm:px-7 sm:py-3.5 lg:px-8 lg:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
                     >
                       Get Started Free <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </Link>
                     <Link
                       href="/nutrition"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl transition-all border border-white/10 active:scale-95 text-xs sm:text-sm"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white font-extrabold px-5 py-2.5 sm:px-7 sm:py-3.5 lg:px-8 lg:py-4 rounded-xl sm:rounded-2xl transition-all border border-white/10 active:scale-95 text-xs sm:text-sm"
                     >
                       Calorie Counter
                     </Link>
@@ -207,28 +208,28 @@ const Page = () => {
           </div>
 
           {/* Slide 2: AI Diet Planner Hero */}
-          <div className="relative w-full flex-shrink-0 py-10 px-5 sm:py-16 sm:px-16 text-center">
-            <div className="absolute top-0 left-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-purple/20 rounded-full blur-[90px] sm:blur-[120px] -ml-16 -mt-16 sm:-ml-36 sm:-mt-36" />
-            <div className="absolute bottom-0 right-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-green/20 rounded-full blur-[90px] sm:blur-[120px] -mr-16 -mb-16 sm:-mr-36 sm:-mb-36" />
+          <div className="relative w-full flex-shrink-0 py-8 px-4 sm:py-12 sm:px-8 lg:py-16 lg:px-16 text-center">
+            <div className="absolute top-0 left-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-purple/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -ml-12 -mt-12 sm:-ml-24 sm:-mt-24 lg:-ml-36 lg:-mt-36 pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-green/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -mr-12 -mb-12 sm:-mr-24 sm:-mb-24 lg:-mr-36 lg:-mb-36 pointer-events-none" />
 
-            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-purple text-white border border-brand-purple/20 shadow-lg shadow-brand-purple/20">
+            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-5 lg:space-y-6">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-purple text-white border border-brand-purple/20 shadow-lg shadow-brand-purple/20">
                 <Brain className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> AI-Powered Meal Planning
               </span>
-              <h1 className="font-display font-black text-2xl sm:text-5xl lg:text-6xl tracking-tight leading-tight sm:leading-none text-white">
+              <h1 className="font-display font-black text-xl sm:text-4xl lg:text-6xl tracking-tight leading-tight sm:leading-tight lg:leading-none text-white">
                 Let AI build your <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-[#a3e635] to-brand-green">
                   full-day diet plan.
                 </span>
               </h1>
-              <p className="text-gray-400 font-semibold text-[11px] sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed px-3 sm:px-0">
+              <p className="text-gray-400 font-semibold text-[11px] sm:text-xs lg:text-base max-w-xl mx-auto leading-relaxed px-1 sm:px-0">
                 Powered by Gemini AI, get a personalized breakfast, lunch, snacks, and dinner plan built around your exact macros and goals.
               </p>
 
-              <div className="pt-3 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+              <div className="pt-2 sm:pt-4 lg:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
                 <Link
                   href="/generate-diet"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-purple text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-purple/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-purple text-white font-extrabold px-5 py-2.5 sm:px-7 sm:py-3.5 lg:px-8 lg:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-purple/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
                 >
                   Generate My Diet Plan <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </Link>
@@ -237,28 +238,28 @@ const Page = () => {
           </div>
 
           {/* Slide 3: AI Workout Routine Hero */}
-          <div className="relative w-full flex-shrink-0 py-10 px-5 sm:py-16 sm:px-16 text-center">
-            <div className="absolute top-0 right-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-purple/20 rounded-full blur-[90px] sm:blur-[120px] -mr-16 -mt-16 sm:-mr-36 sm:-mt-36" />
-            <div className="absolute bottom-0 left-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-green/20 rounded-full blur-[90px] sm:blur-[120px] -ml-16 -mb-16 sm:-ml-36 sm:-mb-36" />
+          <div className="relative w-full flex-shrink-0 py-8 px-4 sm:py-12 sm:px-8 lg:py-16 lg:px-16 text-center">
+            <div className="absolute top-0 right-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-purple/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -mr-12 -mt-12 sm:-mr-24 sm:-mt-24 lg:-mr-36 lg:-mt-36 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-green/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -ml-12 -mb-12 sm:-ml-24 sm:-mb-24 lg:-ml-36 lg:-mb-36 pointer-events-none" />
 
-            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-purple text-white border border-brand-purple/20 shadow-lg shadow-brand-purple/20">
+            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-5 lg:space-y-6">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-purple text-white border border-brand-purple/20 shadow-lg shadow-brand-purple/20">
                 <Dumbbell className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> AI-Powered Workout Plans
               </span>
-              <h1 className="font-display font-black text-2xl sm:text-5xl lg:text-6xl tracking-tight leading-tight sm:leading-none text-white">
+              <h1 className="font-display font-black text-xl sm:text-4xl lg:text-6xl tracking-tight leading-tight sm:leading-tight lg:leading-none text-white">
                 Let AI design your <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-[#a3e635] to-brand-green">
                   weekly workout routine.
                 </span>
               </h1>
-              <p className="text-gray-400 font-semibold text-[11px] sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed px-3 sm:px-0">
+              <p className="text-gray-400 font-semibold text-[11px] sm:text-xs lg:text-base max-w-xl mx-auto leading-relaxed px-1 sm:px-0">
                 Answer a few quick questions and get 3 personalized weekly training routines — tailored to your goals, equipment, and schedule. Regenerate anytime.
               </p>
 
-              <div className="pt-3 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+              <div className="pt-2 sm:pt-4 lg:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
                 <Link
                   href="/ai-routine"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-purple text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-purple/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-purple text-white font-extrabold px-5 py-2.5 sm:px-7 sm:py-3.5 lg:px-8 lg:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-purple/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
                 >
                   Build My Routine <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </Link>
@@ -267,28 +268,28 @@ const Page = () => {
           </div>
 
           {/* Slide 4: Calorie Counter Hero */}
-          <div className="relative w-full flex-shrink-0 py-10 px-5 sm:py-16 sm:px-16 text-center">
-            <div className="absolute top-0 left-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-green/20 rounded-full blur-[90px] sm:blur-[120px] -ml-16 -mt-16 sm:-ml-36 sm:-mt-36" />
-            <div className="absolute bottom-0 right-0 w-[220px] h-[220px] sm:w-[450px] sm:h-[450px] bg-brand-purple/20 rounded-full blur-[90px] sm:blur-[120px] -mr-16 -mb-16 sm:-mr-36 sm:-mb-36" />
+          <div className="relative w-full flex-shrink-0 py-8 px-4 sm:py-12 sm:px-8 lg:py-16 lg:px-16 text-center">
+            <div className="absolute top-0 left-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-green/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -ml-12 -mt-12 sm:-ml-24 sm:-mt-24 lg:-ml-36 lg:-mt-36 pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-[180px] h-[180px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-brand-purple/20 rounded-full blur-[70px] sm:blur-[100px] lg:blur-[120px] -mr-12 -mb-12 sm:-mr-24 sm:-mb-24 lg:-mr-36 lg:-mb-36 pointer-events-none" />
 
-            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-green text-white border border-brand-green/20 shadow-lg shadow-brand-green/20">
+            <div className="relative z-10 max-w-3xl mx-auto space-y-3 sm:space-y-5 lg:space-y-6">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-4 sm:py-2 rounded-full text-[9px] sm:text-xs font-black uppercase tracking-wider bg-brand-green text-white border border-brand-green/20 shadow-lg shadow-brand-green/20">
                 <Flame className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Instant Calorie Tracking
               </span>
-              <h1 className="font-display font-black text-2xl sm:text-5xl lg:text-6xl tracking-tight leading-tight sm:leading-none text-white">
+              <h1 className="font-display font-black text-xl sm:text-4xl lg:text-6xl tracking-tight leading-tight sm:leading-tight lg:leading-none text-white">
                 Log every meal in <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green via-[#a3e635] to-brand-purple">
                   seconds, not minutes.
                 </span>
               </h1>
-              <p className="text-gray-400 font-semibold text-[11px] sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed px-3 sm:px-0">
+              <p className="text-gray-400 font-semibold text-[11px] sm:text-xs lg:text-base max-w-xl mx-auto leading-relaxed px-1 sm:px-0">
                 Search our 10,000+ food database, adjust portions instantly, and track your daily calorie budget with zero friction — no login required to try it.
               </p>
 
-              <div className="pt-3 sm:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
+              <div className="pt-2 sm:pt-4 lg:pt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4">
                 <Link
                   href="/nutrition"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-5 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-green text-white font-extrabold px-5 py-2.5 sm:px-7 sm:py-3.5 lg:px-8 lg:py-4 rounded-xl sm:rounded-2xl hover:bg-brand-green/90 transition-all shadow-md active:scale-95 text-xs sm:text-sm"
                 >
                   Count My Calories <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </Link>
@@ -301,26 +302,28 @@ const Page = () => {
         <button
           onClick={() => goToSlide(activeSlide - 1)}
           aria-label="Previous slide"
-          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 text-white p-1.5 sm:p-2 rounded-full transition-all"
+          className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 text-white p-1.5 sm:p-2.5 rounded-full transition-all touch-manipulation backdrop-blur-sm"
         >
           <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
         <button
           onClick={() => goToSlide(activeSlide + 1)}
           aria-label="Next slide"
-          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 text-white p-1.5 sm:p-2 rounded-full transition-all"
+          className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 text-white p-1.5 sm:p-2.5 rounded-full transition-all touch-manipulation backdrop-blur-sm"
         >
           <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
 
-        {/* Dots */}
-        <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2">
+        {/* Pagination Dots */}
+        <div className="absolute bottom-2.5 sm:bottom-4 lg:bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2">
           {Array.from({ length: totalSlides }).map((_, i) => (
             <button
               key={i}
               onClick={() => goToSlide(i)}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-1.5 sm:h-2 rounded-full transition-all ${activeSlide === i ? 'w-5 sm:w-6 bg-brand-green' : 'w-1.5 sm:w-2 bg-white/30 hover:bg-white/50'
+              className={`h-1.5 sm:h-2 rounded-full transition-all ${activeSlide === i
+                  ? 'w-5 sm:w-6 bg-brand-green'
+                  : 'w-1.5 sm:w-2 bg-white/30 hover:bg-white/50'
                 }`}
             />
           ))}
@@ -621,7 +624,7 @@ const Page = () => {
       </div>
 
       {/* NEW SECTION 3: Live Community Stat Badges */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10 sm:mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6 mb-10 sm:mb-16">
         <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center space-y-1.5 sm:space-y-2 shadow-sm">
           <div className="mx-auto w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-brand-tint-green text-brand-green flex items-center justify-center mb-1">
             <Apple className="h-4 w-4 sm:h-5 sm:w-5" />
